@@ -1,0 +1,99 @@
+<%- include('partials/header') %>
+
+    <section class="page-header">
+        <div class="container text-center">
+            <h1 class="page-title fade-up">Contact Us</h1>
+            <div class="breadcrumbs fade-up delay-1">
+                <a href="/">Home</a> <span>/</span> Contact
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section section-padding">
+        <div class="container section-grid">
+            <div class="contact-info">
+                <span class="accent-text">Get in Touch</span>
+                <h2 class="section-heading">We are here to assist you</h2>
+                <p class="mb-5">Whether you are inquiring about a bespoke carpet, international exports, or wish to
+                    explore our collections in person, our team is ready to provide personalized assistance.</p>
+
+                <div class="info-block">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-content">
+                        <h3>Headquarters</h3>
+                        <p>Tajmahal Products<br>Carpet Manufacturers & Exporters<br>Chauri Road, Bhadohi -
+                            221401<br>Uttar Pradesh, India</p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="info-content">
+                        <h3>Phone</h3>
+                        <p>+91 8299501435, +91 9918003355<br>+91 9839915423, +91 9415225423</p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p>tmproducts.bhadohi@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <% if (typeof success !=='undefined' && success) { %>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> Complete! Your inquiry has been sent successfully. We will
+                        get back to you shortly.
+                    </div>
+                    <% } %>
+
+                        <form action="/contact" method="POST" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900">
+                                </div>
+                                <div class="form-group">
+                                    <label for="interest">Area of Interest</label>
+                                    <select id="interest" name="interest">
+                                        <option value="bespoke">Bespoke Design</option>
+                                        <option value="export">Export/Wholesale Inquiry</option>
+                                        <option value="retail">Retail Purchase</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message *</label>
+                                <textarea id="message" name="message" rows="5" required
+                                    placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                        </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section border-top">
+        <!-- Embed a styled Google Map of Bhadohi -->
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115456.65796900762!2d82.49386376510808!3d25.402685025439493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398fdf7df381bbdd%3A0xe54dbbebf6fb3797!2sBhadohi%20Nagar%20Palika!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <%- include('partials/footer') %>

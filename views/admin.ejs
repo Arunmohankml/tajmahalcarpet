@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Tajmahal Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-layout {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .admin-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .table-admin {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-admin th,
+        .table-admin td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .table-admin th {
+            background: #f9f9f9;
+            font-weight: 600;
+            color: var(--color-dark);
+        }
+
+        .table-admin img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .form-preview-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+        }
+
+        .action-flex {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <header class="navbar" style="position: static; border-bottom: 1px solid #ddd;">
+        <div class="nav-container">
+            <a href="/" class="logo">TAJMAHAL PRODUCTS <span
+                    style="font-size: 0.8rem; font-family: 'Inter'; color: var(--color-gold); margin-left:10px;">ADMIN</span></a>
+            <ul class="nav-menu" style="display:flex;">
+                <li><a href="/" class="nav-link"><i class="fas fa-globe"></i> View Website</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <div class="admin-header text-center">
+            <h1>Carpet Catalog Manager</h1>
+            <p>Add, edit, or remove carpets from the website easily without coding.</p>
+        </div>
+
+        <div class="section-grid" style="grid-template-columns: 1fr 2fr; gap: 2rem;">
+            <!-- Add New Carpet Form -->
+            <div class="admin-card">
+                <h3 class="mb-3">Add New Carpet</h3>
+                <form action="/api/carpets" method="POST">
+                    <div class="form-group">
+                        <label for="name">Carpet Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="e.g. Royal Persian Silk">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <select id="category" name="category" required>
+                            <option value="Hand-Knotted">Hand-Knotted</option>
+                            <option value="Hand-Tufted">Hand-Tufted</option>
+                            <option value="Contemporary">Contemporary</option>
+                            <option value="Traditional">Traditional</option>
+                            <option value="Bespoke">Bespoke</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" id="imageUrl" name="imageUrl" placeholder="Paste image link here"
+                            oninput="document.getElementById('imgPreview').src = this.value || 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='; document.getElementById('imgText').style.display = this.value ? 'none' : 'block';">
+                        <small style="display:block; margin-top:0.5rem; color:#666;">Host images on Imgur, Google Drive,
+                            or your own server and paste direct link here.</small>
+                    </div>
+
+                    <div class="form-preview-img mb-3 mt-2" style="position: relative; overflow: hidden;">
+                        <span id="imgText" style="position: absolute; color: #888; font-size: 0.9rem;">Image
+                            Preview</span>
+                        <img id="imgPreview" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="material">Material</label>
+                        <input type="text" id="material" name="material" placeholder="e.g. Wool & Silk">
+                    </div>
+                    <div class="form-group">
+                        <label for="origin">Origin</label>
+                        <input type="text" id="origin" name="origin" value="Bhadohi, India">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Short Description</label>
+                        <textarea id="description" name="description" rows="3"
+                            placeholder="Brief details about the carpet..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 btn-full">Save Carpet</button>
+                </form>
+            </div>
+
+            <!-- List of Carpets -->
+            <div class="admin-card">
+                <h3 class="mb-3">Current Catalog (<%= carpets.length %> Items)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="table-admin">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Material</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (carpets && carpets.length> 0) { %>
+                                <% carpets.forEach(carpet=> { %>
+                                    <tr>
+                                        <td>
+                                            <% if (carpet.imageUrl) { %>
+                                                <img src="<%= carpet.imageUrl %>" alt="carpet">
+                                                <% } else { %>
+                                                    <div
+                                                        style="width:60px; height:60px; background:#eee; display:flex; align-items:center; justify-content:center; font-size:10px; color:#999; text-align:center; line-height:1.2;">
+                                                        No<br>Img</div>
+                                                    <% } %>
+                                        </td>
+                                        <td><strong>
+                                                <%= carpet.name %>
+                                            </strong></td>
+                                        <td>
+                                            <%= carpet.category %>
+                                        </td>
+                                        <td>
+                                            <%= carpet.material %>
+                                        </td>
+                                        <td>
+                                            <form action="/api/carpets/delete/<%= carpet.id %>" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this carpet?');">
+                                                <button type="submit" class="btn btn-small btn-danger"><i
+                                                        class="fas fa-trash"></i> Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="5" class="text-center py-4">No carpets in catalog yet. Add
+                                                    one from the left panel.</td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<%- include('partials/header') %>
+
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-frame"></div>
+        <div class="hero-content">
+            <span class="hero-overline">Est. — Six Generations &nbsp;·&nbsp; Bhadohi, India</span>
+            <h1 class="hero-title"><strong>Heritage</strong><br>Craftsmanship</h1>
+            <div class="hero-ornament">
+                <span>✦</span>
+            </div>
+            <p class="hero-subtitle">Manufacturer &amp; Exporter of Luxury Handmade Carpets from India,
+                carrying forward an unbroken tradition of artisanal mastery.</p>
+            <div class="hero-actions">
+                <a href="/products" class="btn btn-primary">Discover Collections</a>
+                <a href="/about" class="btn btn-outline">Our Heritage</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <section class="philosophy-section section-padding">
+        <div class="container section-grid align-items-center">
+            <div class="section-text reveal-left">
+                <span class="accent-text">Our Philosophy</span>
+                <h2 class="section-heading">Rooted in artisanal <em>mastery</em></h2>
+                <div class="ornament" style="justify-content:flex-start; margin-bottom: 1.5rem;">
+                    <div style="width:40px; height:1px; background: linear-gradient(90deg, var(--color-gold), transparent);"></div>
+                    <span class="ornament-symbol" style="font-size:0.9rem;">❧</span>
+                </div>
+                <p style="margin-bottom:1rem;">Tajmahal Products is a heritage-driven manufacturer, established on the principles of craftsmanship,
+                    discretion, and consistency.</p>
+                <p style="margin-bottom:1.5rem;">We believe true luxury lies in detail, restraint, and longevity. Each piece is a testament to
+                    precision, material integrity, and timeless design.</p>
+                <a href="/about" class="link-arrow mt-4">Read our story <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="section-image image-placeholder reveal-right">
+                <div class="img-inner bg-weaving"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-collections section-padding">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <span class="accent-text">What We Create</span>
+                <h2 class="section-heading">Curated <em>Collections</em></h2>
+                <div class="ornament" style="max-width:280px; margin: 0 auto 0.5rem;">
+                    <span class="ornament-symbol">✦ ✦ ✦</span>
+                </div>
+            </div>
+
+            <div class="collection-grid">
+                <% if (featured && featured.length > 0) { %>
+                    <% featured.forEach(carpet => { %>
+                        <a href="/products" class="carpet-card-link">
+                            <div class="carpet-card">
+                                <div class="carpet-image">
+                                    <% if (carpet.imageUrl && carpet.imageUrl !== "") { %>
+                                        <img src="<%= carpet.imageUrl %>" alt="<%= carpet.name %>">
+                                        <div class="carpet-overlay">
+                                            <div class="carpet-details">
+                                                <h3 style="font-family:var(--font-heading);font-style:italic;color:#fff;margin-bottom:0.3rem;"><%= carpet.name %></h3>
+                                                <% if (carpet.description) { %>
+                                                    <p class="small-desc"><%= carpet.description.substring(0, 80) %>...</p>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <% } else { %>
+                                            <div class="img-placeholder">
+                                                <i class="fas fa-image"></i>
+                                                <span>No Image</span>
+                                            </div>
+                                            <% } %>
+                                </div>
+                                <div class="carpet-info">
+                                    <span class="carpet-category"><%= carpet.category %></span>
+                                    <h3 class="carpet-title"><%= carpet.name %></h3>
+                                </div>
+                            </div>
+                        </a>
+                        <% }) %>
+                            <% } else { %>
+                                <p class="text-center" style="grid-column:1/-1;">Collections are currently being curated.</p>
+                                <% } %>
+            </div>
+            <div class="text-center mt-4 reveal">
+                <a href="/products" class="btn btn-primary">View All Carpets</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us-section section-padding">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <span class="accent-text">Our Distinction</span>
+                <h2 class="section-heading" style="color:var(--color-champagne);">Why <em>Tajmahal</em> Products</h2>
+                <div class="ornament" style="max-width:280px; margin:0 auto;">
+                    <span class="ornament-symbol" style="color:var(--color-gold);">✦ ✦ ✦</span>
+                </div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <i class="fas fa-history feature-icon"></i>
+                    <h3>Six Generations</h3>
+                    <p>Proven expertise passed down from master weavers through an unbroken tradition.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-drafting-compass feature-icon"></i>
+                    <h3>Bespoke Development</h3>
+                    <p>Exclusive carpets developed entirely to specific client specifications and interior needs.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-leaf feature-icon"></i>
+                    <h3>Ethical &amp; Sustainable</h3>
+                    <p>Preservation of artisanal skills through fair employment and responsible sourcing.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-gem feature-icon"></i>
+                    <h3>Consistent Quality</h3>
+                    <p>Strict supervision guaranteeing structural integrity and luxury standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('partials/footer') %>

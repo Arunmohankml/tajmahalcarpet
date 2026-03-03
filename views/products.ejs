@@ -1,0 +1,75 @@
+<%- include('partials/header') %>
+
+    <section class="page-header">
+        <div class="container text-center">
+            <h1 class="page-title fade-up">Collections</h1>
+            <div class="breadcrumbs fade-up delay-1">
+                <a href="/">Home</a> <span>/</span> Collections
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section section-padding">
+        <div class="container">
+            <!-- Category Filter -->
+            <div class="filter-container text-center mb-5">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="Hand-Knotted">Hand-Knotted</button>
+                <button class="filter-btn" data-filter="Hand-Tufted">Hand-Tufted</button>
+                <button class="filter-btn" data-filter="Contemporary">Contemporary</button>
+                <button class="filter-btn" data-filter="Traditional">Traditional</button>
+                <button class="filter-btn" data-filter="Bespoke">Bespoke</button>
+            </div>
+
+            <div class="collection-grid" id="productGrid">
+                <% if (carpets && carpets.length> 0) { %>
+                    <% carpets.forEach(carpet=> { %>
+                        <div class="carpet-card product-item" data-category="<%= carpet.category %>">
+                            <div class="carpet-image">
+                                <% if (carpet.imageUrl && carpet.imageUrl !=="" ) { %>
+                                    <img src="<%= carpet.imageUrl %>" alt="<%= carpet.name %>">
+                                    <% } else { %>
+                                        <div class="img-placeholder">
+                                            <i class="fas fa-image"></i>
+                                            <span>Image Pending</span>
+                                        </div>
+                                        <% } %>
+                                            <div class="carpet-overlay">
+                                                <div class="carpet-details">
+                                                    <p><strong>Material:</strong>
+                                                        <%= carpet.material %>
+                                                    </p>
+                                                    <p><strong>Origin:</strong>
+                                                        <%= carpet.origin %>
+                                                    </p>
+                                                    <p class="small-desc">
+                                                        <%= carpet.description %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                            </div>
+                            <div class="carpet-info">
+                                <span class="carpet-category">
+                                    <%= carpet.category %>
+                                </span>
+                                <h3 class="carpet-title">
+                                    <%= carpet.name %>
+                                </h3>
+                            </div>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <div class="empty-state text-center" style="grid-column: 1 / -1; padding: 4rem 0;">
+                                    <i class="fas fa-box-open"
+                                        style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                                    <h2>No Collections Available</h2>
+                                    <p>Our catalog is currently being updated. Please check back later.</p>
+                                    <p class="mt-2"><a href="/admin" class="btn btn-outline btn-small">Admin: Add
+                                            Carpets</a></p>
+                                </div>
+                                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
