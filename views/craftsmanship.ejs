@@ -71,7 +71,7 @@
                 </ul>
             </div>
             <div class="section-image image-placeholder">
-                <div class="img-inner bg-sustainable"></div>
+                <div class="img-inner" style="background-image: url('<%= settings.img_sustainable %>');"></div>
             </div>
         </div>
     </section>
@@ -107,4 +107,29 @@
         </div>
     </section>
 
-    <%- include('partials/footer') %>
+    <% const factoryImgs=[1,2,3,4].map(n=> settings['img_factory'+n]).filter(u => u && u.trim());
+        %>
+        <% if (factoryImgs.length> 0) { %>
+            <section class="factory-gallery section-padding" style="background: var(--color-champagne);">
+                <div class="container">
+                    <div class="section-header text-center reveal" style="margin-bottom:2.5rem;">
+                        <span class="accent-text">Inside Our Workshop</span>
+                        <h2 class="section-heading">From Our <em>Factory</em></h2>
+                        <div class="ornament" style="max-width:240px;margin:0 auto;"><span class="ornament-symbol">✦ ✦
+                                ✦</span></div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:1.2rem;">
+                        <% factoryImgs.forEach((url, i)=> { %>
+                            <div class="image-placeholder reveal"
+                                style="min-height:240px; border-radius:2px; overflow:hidden; transition-delay:<%= i*0.1 %>s">
+                                <div class="img-inner"
+                                    style="background-image:url('<%= url %>');background-size:cover;background-position:center;">
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+            </section>
+            <% } %>
+
+                <%- include('partials/footer') %>
