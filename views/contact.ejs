@@ -21,8 +21,7 @@
                     <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div class="info-content">
                         <h3>Headquarters</h3>
-                        <p>Tajmahal Products<br>Carpet Manufacturers & Exporters<br>Chauri Road, Bhadohi -
-                            221401<br>Uttar Pradesh, India</p>
+                        <p>Tajmahal Products<br><%- (settings.contact_address || '' ).replace(/\n/g,'<br>') %></p>
                     </div>
                 </div>
 
@@ -30,7 +29,12 @@
                     <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                     <div class="info-content">
                         <h3>Phone</h3>
-                        <p>+91 8299501435, +91 9918003355<br>+91 9839915423, +91 9415225423</p>
+                        <p>
+                            <%= settings.contact_phone1 %>
+                                <% if(settings.contact_phone2){ %><br>
+                                    <%= settings.contact_phone2 %>
+                                        <% } %>
+                        </p>
                     </div>
                 </div>
 
@@ -38,7 +42,9 @@
                     <div class="info-icon"><i class="fas fa-envelope"></i></div>
                     <div class="info-content">
                         <h3>Email</h3>
-                        <p>tmproducts.bhadohi@gmail.com</p>
+                        <p><a href="mailto:<%= settings.contact_email %>">
+                                <%= settings.contact_email %>
+                            </a></p>
                     </div>
                 </div>
             </div>

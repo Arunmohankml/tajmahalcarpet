@@ -582,7 +582,8 @@
                 <div class="admin-card">
                     <h3><i class="fas fa-list" style="margin-right:8px; color:var(--color-gold);"></i>Current Catalog
                         <span style="font-size:0.85rem; color:#aaa; letter-spacing:0;">(<%= carpets.length %>
-                                items)</span></h3>
+                                items)</span>
+                    </h3>
                     <div style="overflow-x: auto;">
                         <table class="table-admin">
                             <thead>
@@ -748,6 +749,48 @@
                                         <% } %>
                             </div>
                             <% }) %>
+                    </div>
+                </div>
+
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-address-book" style="margin-right:8px;color:var(--color-gold);"></i>Contact
+                        Information</h3>
+                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">Update the address, phone numbers, and
+                        email shown on the Contact page and website footer.</p>
+
+                    <div class="form-group">
+                        <label
+                            style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:#666;">Business
+                            Address</label>
+                        <textarea name="contact_address" rows="3"
+                            style="width:100%;padding:0.75rem;border:1px solid #ddd;font-family:'Inter',sans-serif;font-size:0.9rem;border-radius:2px;background:#faf9f6;resize:vertical;"><%= settings.contact_address %></textarea>
+                        <small style="color:#999;font-size:0.78rem;">Use line breaks to separate address lines.</small>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div class="form-group">
+                            <label
+                                style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:#666;">Phone
+                                / Landline</label>
+                            <input type="text" name="contact_phone1" value="<%= settings.contact_phone1 %>"
+                                placeholder="+91 XXXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label
+                                style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:#666;">Mobile
+                                / Alternate</label>
+                            <input type="text" name="contact_phone2" value="<%= settings.contact_phone2 %>"
+                                placeholder="+91 XXXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label
+                            style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:#666;">Email
+                            Address</label>
+                        <input type="email" name="contact_email" value="<%= settings.contact_email %>"
+                            placeholder="your@email.com">
                     </div>
                 </div>
 

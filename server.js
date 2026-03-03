@@ -12,12 +12,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Make settings available to ALL templates (including partials like footer)
+app.use(async (req, res, next) => {
+    try {
+        res.locals.settings = await getSettings();
+    } catch (e) {
+        res.locals.settings = {};
+    }
+    next();
+});
+
 // ── PAGE ROUTES ──────────────────────────────────────────
 
 app.get('/', async (req, res) => {
-    const carpets = await getCarpets();
+    const [carpets, settings] = await Promise.all([getCarpets(), getSettings()]);
     const featured = carpets.slice(0, 4);
-    res.render('index', { featured });
+    res.render('index', { featured, settings });
 });
 
 app.get('/about', async (req, res) => {
@@ -35,13 +45,15 @@ app.get('/craftsmanship', async (req, res) => {
     res.render('craftsmanship', { settings });
 });
 
-app.get('/contact', (req, res) => {
-    res.render('contact', { success: false });
+app.get('/contact', async (req, res) => {
+    const settings = await getSettings();
+    res.render('contact', { success: false, settings });
 });
 
-app.post('/contact', (req, res) => {
+app.post('/contact', async (req, res) => {
+    const settings = await getSettings();
     console.log('Contact form submitted:', req.body);
-    res.render('contact', { success: true });
+    res.render('contact', { success: true, settings });
 });
 
 // ── ADMIN ROUTES ─────────────────────────────────────────

@@ -23,14 +23,21 @@
         <div class="footer-column">
             <h4>Contact</h4>
             <address class="footer-address">
-                Carpet Manufacturers & Exporters<br>
-                Chauri Road, Bhadohi - 221401<br>
-                Uttar Pradesh, India
+                <%= (settings.contact_address || '' ).replace(/\n/g, '<br>' ) %>
             </address>
-            <p class="footer-contact"><a href="mailto:tmproducts.bhadohi@gmail.com"><i class="fas fa-envelope"></i>
-                    tmproducts.bhadohi@gmail.com</a></p>
-            <p class="footer-contact"><i class="fas fa-phone-alt"></i> +91 8299501435, +91 9918003355</p>
-            <p class="footer-contact"><i class="fas fa-mobile-alt"></i> +91 9839915423, +91 9415225423</p>
+            <p class="footer-contact"><a href="mailto:<%= settings.contact_email %>"><i class="fas fa-envelope"></i>
+                    <%= settings.contact_email %>
+                </a></p>
+            <% if (settings.contact_phone1) { %>
+                <p class="footer-contact"><i class="fas fa-phone-alt"></i>
+                    <%= settings.contact_phone1 %>
+                </p>
+                <% } %>
+                    <% if (settings.contact_phone2) { %>
+                        <p class="footer-contact"><i class="fas fa-mobile-alt"></i>
+                            <%= settings.contact_phone2 %>
+                        </p>
+                        <% } %>
         </div>
     </div>
     <div class="footer-bottom">
