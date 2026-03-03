@@ -1503,6 +1503,41 @@ ul {
     transform: translateX(5px);
 }
 
+/* Footer contact info (address/email/phone) — light on dark bg */
+.footer-address {
+    color: rgba(245, 237, 224, 0.55);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    font-style: normal;
+    margin-bottom: 0.75rem;
+}
+
+.footer-contact {
+    color: rgba(245, 237, 224, 0.55);
+    font-size: 0.92rem;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-contact a {
+    color: var(--color-gold);
+    transition: color 0.25s;
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    color: var(--color-champagne);
+    text-decoration: underline;
+}
+
+.footer-contact i {
+    color: var(--color-gold);
+    width: 14px;
+    flex-shrink: 0;
+}
+
 .social-links {
     display: flex;
     gap: 0.75rem;
@@ -1854,4 +1889,86 @@ ul {
     .features-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ===================== ADMIN MODAL ===================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 2rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--color-white);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid var(--color-gold);
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-dark);
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: var(--color-gold);
+}
+
+.modal-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Edit button styling */
+.btn-edit {
+    padding: 0.4rem 0.8rem !important;
+    background: #f3f4f6 !important;
+    color: #374151 !important;
+    border: 1px solid #d1d5db !important;
+    font-size: 0.75rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    border-radius: 2px !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+.btn-edit:hover {
+    background: #e5e7eb !important;
+    border-color: #9ca3af !important;
 }

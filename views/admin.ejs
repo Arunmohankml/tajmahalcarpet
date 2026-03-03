@@ -642,11 +642,33 @@
                                                                         <% } %>
                                             </td>
                                             <td>
-                                                <form action="/api/carpets/delete/<%= carpet.id %>" method="POST"
-                                                    onsubmit="return confirm('Delete this carpet?');">
-                                                    <button type="submit" class="btn-danger"><i
-                                                            class="fas fa-trash"></i> Delete</button>
-                                                </form>
+                                                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+                                                    <button type="button" class="btn-edit" onclick="openEditModal(
+                                                            '<%= carpet.id %>',
+                                                            '<%= (carpet.name||'').replace(/'/g,\" \\\\'\" ) %>',
+                                                        '<%= carpet.category %>',
+                                                            '<%= (carpet.imageUrl||'').replace(/'/g,\"\\\\'\" ) %>',
+                                                                '<%= (carpet.material||'').replace(/'/g,\"\\\\'\" ) %>',
+                                                                    '<%= (carpet.origin||'').replace(/'/g,\"\\\\'\" ) %>
+                                                                        ',
+                                                                        '<%= (carpet.knots||'').replace(/'/g,\"\\\\'\" )
+                                                                            %>',
+                                                                            '<%= carpet.face||'' %>',
+                                                                                '<%= carpet.washing||'' %>',
+                                                                                    '<%= JSON.stringify(carpet.sizes||[])
+                                                                                        %>',
+                                                                                        '<%= (carpet.description||'').replace(/'/g,\"\\\\'\"
+                                                                                            ).replace(/\\n/g,\" \") %>'
+                                                                                            )">
+                                                                                            <i class="fas fa-edit"></i>
+                                                                                            Edit
+                                                    </button>
+                                                    <form action="/api/carpets/delete/<%= carpet.id %>" method="POST"
+                                                        onsubmit="return confirm('Delete this carpet?');">
+                                                        <button type="submit" class="btn-danger"><i
+                                                                class="fas fa-trash"></i></button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                         <% }) %>
@@ -806,6 +828,113 @@
     <div class="toast" id="toast"><i class="fas fa-check-circle" style="margin-right:8px;"></i>Settings saved
         successfully!</div>
 
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Edit Carpet Details</h2>
+            </div>
+            <form id="editForm" method="POST">
+                <div class="admin-grid">
+                    <div class="form-group">
+                        <label>Carpet Name</label>
+                        <input type="text" name="name" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" id="editCategory">
+                            <option value="Hand-Knotted">Hand-Knotted</option>
+                            <option value="Hand-Tufted">Hand-Tufted</option>
+                            <option value="Contemporary">Contemporary</option>
+                            <option value="Traditional">Traditional</option>
+                            <option value="Bespoke">Bespoke</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" name="imageUrl" id="editImageUrl">
+                </div>
+
+                <div class="admin-grid">
+                    <div class="form-group">
+                        <label>Material</label>
+                        <input type="text" name="material" id="editMaterial">
+                    </div>
+                    <div class="form-group">
+                        <label>Origin</label>
+                        <input type="text" name="origin" id="editOrigin">
+                    </div>
+                </div>
+
+                <div class="admin-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Knots</label>
+                        <input type="text" name="knots" id="editKnots">
+                    </div>
+                    <div class="form-group">
+                        <label>Face/Pile</label>
+                        <select name="face" id="editFace">
+                            <option value="">Select Face Type</option>
+                            <option value="Cut Pile">Cut Pile</option>
+                            <option value="Loop Pile">Loop Pile</option>
+                            <option value="Flat Weave">Flat Weave</option>
+                            <option value="Velvet">Velvet</option>
+                            <option value="High-Low">High-Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Washing</label>
+                        <select name="washing" id="editWashing">
+                            <option value="">Select Wash Type</option>
+                            <option value="Stone Washed">Stone Washed</option>
+                            <option value="Tea Washed">Tea Washed</option>
+                            <option value="Luster Washed">Luster Washed</option>
+                            <option value="Antique Washed">Antique Washed</option>
+                            <option value="Natural">Natural</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Sizes Available</label>
+                    <div class="size-options">
+                        <label class="checkbox-label"><input type="checkbox" name="sizes"
+                                value="ALL EUROPEAN & AMERICAN SIZES" id="editSizeAll"> ALL EUROPEAN & AMERICAN
+                            SIZES</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="2x3" id="editSize2x3">
+                            2x3</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="4x6" id="editSize4x6">
+                            4x6</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="5x8" id="editSize5x8">
+                            5x8</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="6x9" id="editSize6x9">
+                            6x9</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="8x10"
+                                id="editSize8x10"> 8x10</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="9x12"
+                                id="editSize9x12"> 9x12</label>
+                        <label class="checkbox-label"><input type="checkbox" name="sizes" value="Custom"
+                                id="editSizeCustom"> Custom</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" id="editDescription" rows="4"></textarea>
+                </div>
+
+                <div style="text-align: right; margin-top: 2rem;">
+                    <button type="button" onclick="closeEditModal()" class="btn-outline btn-small"
+                        style="margin-right: 1rem;">Cancel</button>
+                    <button type="submit" class="btn-primary btn-small">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Tab switching
         function switchTab(tab) {
@@ -855,6 +984,43 @@
             // Switch to settings tab if coming from settings save
             switchTab('settings');
             setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+        // Edit Modal functions
+        function openEditModal(id, name, category, imageUrl, material, origin, knots, face, washing, sizesJSON, description) {
+            const form = document.getElementById('editForm');
+            form.action = '/api/carpets/edit/' + id;
+
+            document.getElementById('editName').value = name;
+            document.getElementById('editCategory').value = category;
+            document.getElementById('editImageUrl').value = imageUrl;
+            document.getElementById('editMaterial').value = material;
+            document.getElementById('editOrigin').value = origin;
+            document.getElementById('editKnots').value = knots;
+            document.getElementById('editFace').value = face;
+            document.getElementById('editWashing').value = washing;
+            document.getElementById('editDescription').value = description;
+
+            // Reset checkboxes
+            const sizes = JSON.parse(sizesJSON || '[]');
+            document.querySelectorAll('#editForm input[name=\"sizes\"]').forEach(cb => {
+                cb.checked = sizes.includes(cb.value);
+            });
+
+            document.getElementById('editModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on click outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                closeEditModal();
+            }
         }
     </script>
 </body>

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const { getCarpets, addCarpet, deleteCarpet, getSettings, saveSettings } = require('./lib/db');
+const { getCarpets, addCarpet, deleteCarpet, updateCarpet, getSettings, saveSettings } = require('./lib/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -78,6 +78,13 @@ app.post('/api/carpets', async (req, res) => {
 
 app.post('/api/carpets/delete/:id', async (req, res) => {
     await deleteCarpet(req.params.id);
+    res.redirect('/admin');
+});
+
+app.post('/api/carpets/edit/:id', async (req, res) => {
+    const { name, category, imageUrl, description, material, origin, knots, washing, face, sizes } = req.body;
+    const sizesArr = Array.isArray(sizes) ? sizes : (sizes ? [sizes] : []);
+    await updateCarpet(req.params.id, { name, category, imageUrl, description, material, origin, knots, washing, face, sizes: sizesArr });
     res.redirect('/admin');
 });
 
