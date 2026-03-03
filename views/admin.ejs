@@ -830,50 +830,63 @@
                 </h3>
                 <% if (typeof messages !=='undefined' && messages.length> 0) { %>
                     <div class="admin-table-wrapper">
-                        <table class="admin-table">
+                        <table class="admin-table messages-table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Customer</th>
-                                    <th>Interest</th>
-                                    <th>Message</th>
-                                    <th>Action</th>
+                                    <th style="width: 120px;">Received</th>
+                                    <th style="width: 250px;">Customer Details</th>
+                                    <th style="width: 150px;">Interest</th>
+                                    <th>Message Content</th>
+                                    <th style="width: 80px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% messages.forEach(msg=> { %>
                                     <tr>
-                                        <td style="white-space:nowrap; font-size:0.75rem; color:#888;">
-                                            <%= msg.createdAt ? new Date(msg.createdAt._seconds *
-                                                1000).toLocaleDateString() : 'Just now' %>
-                                        </td>
                                         <td>
-                                            <div style="font-weight:600; color:var(--color-dark);">
-                                                <%= msg.name %>
-                                            </div>
-                                            <div style="font-size:0.82rem; color:#666;">
-                                                <%= msg.email %>
-                                            </div>
-                                            <div style="font-size:0.82rem; color:#666;">
-                                                <%= msg.phone %>
+                                            <div
+                                                style="font-size: 0.78rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                <%= msg.createdAt ? new Date(msg.createdAt._seconds *
+                                                    1000).toLocaleDateString(undefined, { month: 'short' ,
+                                                    day: 'numeric' , year: 'numeric' }) : 'Just now' %>
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge">
+                                            <div class="msg-customer-info">
+                                                <span
+                                                    style="font-weight: 600; font-size: 1rem; color: var(--color-dark);">
+                                                    <%= msg.name %>
+                                                </span>
+                                                <span style="font-size: 0.85rem; color: #666;"><i
+                                                        class="fas fa-envelope"
+                                                        style="margin-right:6px; opacity:0.5;"></i>
+                                                    <%= msg.email %>
+                                                </span>
+                                                <% if(msg.phone) { %>
+                                                    <span style="font-size: 0.85rem; color: #666;"><i
+                                                            class="fas fa-phone"
+                                                            style="margin-right:6px; opacity:0.5;"></i>
+                                                        <%= msg.phone %>
+                                                    </span>
+                                                    <% } %>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="background: #e9e5db;">
                                                 <%= msg.interest %>
                                             </span>
                                         </td>
                                         <td>
-                                            <div
-                                                style="font-size:0.88rem; line-height:1.4; max-width:400px; color:#444;">
+                                            <div class="msg-body">
                                                 <%= msg.message %>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <form action="/api/messages/delete/<%= msg.id %>" method="POST"
-                                                onsubmit="return confirm('Delete this message?');">
-                                                <button type="submit" class="btn-danger" title="Remove Message">
-                                                    <i class="fas fa-trash"></i>
+                                                onsubmit="return confirm('Archive/Delete this message?');">
+                                                <button type="submit" class="btn-danger" style="padding: 0.6rem 0.8rem;"
+                                                    title="Remove Message">
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -1038,6 +1051,40 @@
             background: #fafaf8;
             border-radius: 4px;
             border: 1px dashed #ddd;
+        }
+
+        .msg-card {
+            padding: 1rem 0;
+        }
+
+        .msg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .msg-customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .msg-body {
+            background: #f9f8f4;
+            padding: 1.2rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--color-gold);
+            margin-top: 0.8rem;
+            color: #444;
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+
+        .admin-table.messages-table th,
+        .admin-table.messages-table td {
+            padding: 1.5rem 1rem;
+            vertical-align: top;
         }
     </style>
     <script>
