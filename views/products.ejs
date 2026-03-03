@@ -41,40 +41,41 @@
                                                         <%= carpet.name %>
                                                     </h3>
                                                     <div
-                                                        style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;text-align:left;font-size:0.78rem;margin-bottom:0.6rem;">
+                                                        style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 1rem;text-align:left;margin-bottom:0.6rem;">
                                                         <% if (carpet.knots) { %>
-                                                            <span><span
-                                                                    style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">KNOTS</span>
-                                                                <%= carpet.knots %>
-                                                            </span>
+                                                            <span><span class="spec-label">Knots</span><span
+                                                                    class="spec-value">
+                                                                    <%= carpet.knots %>
+                                                                </span></span>
                                                             <% } %>
                                                                 <% if (carpet.face) { %>
-                                                                    <span><span
-                                                                            style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">FACE</span>
-                                                                        <%= carpet.face %>
-                                                                    </span>
+                                                                    <span><span class="spec-label">Face</span><span
+                                                                            class="spec-value">
+                                                                            <%= carpet.face %>
+                                                                        </span></span>
                                                                     <% } %>
                                                                         <% if (carpet.washing) { %>
                                                                             <span><span
-                                                                                    style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">WASHING</span>
-                                                                                <%= carpet.washing %>
-                                                                            </span>
+                                                                                    class="spec-label">Washing</span><span
+                                                                                    class="spec-value">
+                                                                                    <%= carpet.washing %>
+                                                                                </span></span>
                                                                             <% } %>
                                                                                 <% if (carpet.material) { %>
                                                                                     <span><span
-                                                                                            style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">MATERIAL</span>
-                                                                                        <%= carpet.material %>
-                                                                                    </span>
+                                                                                            class="spec-label">Material</span><span
+                                                                                            class="spec-value">
+                                                                                            <%= carpet.material %>
+                                                                                        </span></span>
                                                                                     <% } %>
                                                     </div>
                                                     <% if (carpet.sizes && carpet.sizes.length> 0) { %>
                                                         <div style="margin-bottom:0.6rem;">
-                                                            <span
-                                                                style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;margin-bottom:0.3rem;">SIZES</span>
-                                                            <div style="display:flex;flex-wrap:wrap;gap:0.25rem;">
+                                                            <span class="spec-label">Sizes</span>
+                                                            <div
+                                                                style="display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.2rem;">
                                                                 <% carpet.sizes.forEach(s=> { %>
-                                                                    <span
-                                                                        style="background:rgba(196,151,59,0.2);border:1px solid rgba(196,151,59,0.4);padding:0.15rem 0.45rem;font-size:0.7rem;border-radius:1px;color:#f5ede0;">
+                                                                    <span class="size-badge">
                                                                         <%= s %>
                                                                     </span>
                                                                     <% }) %>
