@@ -643,26 +643,13 @@
                                             </td>
                                             <td>
                                                 <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
-                                                    <button type="button" class="btn-edit" onclick="openEditModal(
-                                                            '<%= carpet.id %>',
-                                                            '<%= (carpet.name||'').replace(/'/g,\" \\\\'\" ) %>',
-                                                        '<%= carpet.category %>',
-                                                            '<%= (carpet.imageUrl||'').replace(/'/g,\"\\\\'\" ) %>',
-                                                                '<%= (carpet.material||'').replace(/'/g,\"\\\\'\" ) %>',
-                                                                    '<%= (carpet.origin||'').replace(/'/g,\"\\\\'\" ) %>
-                                                                        ',
-                                                                        '<%= (carpet.knots||'').replace(/'/g,\"\\\\'\" )
-                                                                            %>',
-                                                                            '<%= carpet.face||'' %>',
-                                                                                '<%= carpet.washing||'' %>',
-                                                                                    '<%= JSON.stringify(carpet.sizes||[])
-                                                                                        %>',
-                                                                                        '<%= (carpet.description||'').replace(/'/g,\"\\\\'\"
-                                                                                            ).replace(/\\n/g,\" \") %>'
-                                                                                            )">
-                                                                                            <i class="fas fa-edit"></i>
-                                                                                            Edit
+                                                    <button type="button" class="btn-edit"
+                                                        data-carpet='<%= JSON.stringify(carpet) %>'
+                                                        onclick="openEditModal(this)">
+                                                        <i class="fas fa-edit"></i> Edit
                                                     </button>
+                                                    <div style="display:none"> <!-- ORIG:
+                                                    --></div>
                                                     <form action="/api/carpets/delete/<%= carpet.id %>" method="POST"
                                                         onsubmit="return confirm('Delete this carpet?');">
                                                         <button type="submit" class="btn-danger"><i
@@ -694,10 +681,13 @@
         <div id="tab-settings" class="tab-content">
             <form action="/api/settings" method="POST">
                 <div class="admin-card">
-                    <h3><i class="fas fa-images" style="margin-right:8px;color:var(--color-gold);"></i>Heritage & About
+                    <h3><i class="fas fa-images" style="margin-right:8px;color:var(--color-gold);"></i>Heritage
+                        & About
                         Page Images</h3>
-                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">These images appear on the Heritage
-                        and Philosophy sections of the website. Paste any direct image URL (Imgur, Google Drive public
+                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">
+                        These images appear on the Heritage
+                        and Philosophy sections of the website. Paste
+                        any direct image URL (Imgur, Google Drive public
                         link, Unsplash, your own server, etc.)</p>
 
                     <div class="settings-img-grid">
@@ -741,10 +731,13 @@
                 </div>
 
                 <div class="admin-card">
-                    <h3><i class="fas fa-industry" style="margin-right:8px;color:var(--color-gold);"></i>Factory /
+                    <h3><i class="fas fa-industry" style="margin-right:8px;color:var(--color-gold);"></i>Factory
+                        /
                         Craftsmanship Gallery</h3>
-                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">These images appear in the Factory
-                        Gallery section on the Craftsmanship page. Add your own factory photos here — no code needed!
+                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">
+                        These images appear in the Factory
+                        Gallery section on the Craftsmanship page. Add
+                        your own factory photos here — no code needed!
                     </p>
 
                     <div class="settings-img-grid">
@@ -766,7 +759,8 @@
                                         <div id="prev_factory<%= n %>" class="settings-img-preview"
                                             style="display:flex;align-items:center;justify-content:center;color:#ccc;flex-direction:column;gap:0.5rem;">
                                             <i class="fas fa-camera" style="font-size:1.5rem;"></i>
-                                            <span style="font-size:0.78rem;">No image yet</span>
+                                            <span style="font-size:0.78rem;">No
+                                                image yet</span>
                                         </div>
                                         <% } %>
                             </div>
@@ -778,8 +772,10 @@
                 <div class="admin-card">
                     <h3><i class="fas fa-address-book" style="margin-right:8px;color:var(--color-gold);"></i>Contact
                         Information</h3>
-                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">Update the address, phone numbers, and
-                        email shown on the Contact page and website footer.</p>
+                    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">
+                        Update the address, phone numbers, and
+                        email shown on the Contact page and website
+                        footer.</p>
 
                     <div class="form-group">
                         <label
@@ -787,7 +783,9 @@
                             Address</label>
                         <textarea name="contact_address" rows="3"
                             style="width:100%;padding:0.75rem;border:1px solid #ddd;font-family:'Inter',sans-serif;font-size:0.9rem;border-radius:2px;background:#faf9f6;resize:vertical;"><%= settings.contact_address %></textarea>
-                        <small style="color:#999;font-size:0.78rem;">Use line breaks to separate address lines.</small>
+                        <small style="color:#999;font-size:0.78rem;">Use
+                            line breaks to separate address
+                            lines.</small>
                     </div>
 
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
@@ -818,7 +816,8 @@
 
                 <div style="text-align:right; margin-bottom: 3rem;">
                     <button type="submit" class="btn-settings-save"><i class="fas fa-save"
-                            style="margin-right:8px;"></i>Save All Settings</button>
+                            style="margin-right:8px;"></i>Save All
+                        Settings</button>
                 </div>
             </form>
         </div>
@@ -844,10 +843,14 @@
                     <div class="form-group">
                         <label>Category</label>
                         <select name="category" id="editCategory">
-                            <option value="Hand-Knotted">Hand-Knotted</option>
-                            <option value="Hand-Tufted">Hand-Tufted</option>
-                            <option value="Contemporary">Contemporary</option>
-                            <option value="Traditional">Traditional</option>
+                            <option value="Hand-Knotted">Hand-Knotted
+                            </option>
+                            <option value="Hand-Tufted">Hand-Tufted
+                            </option>
+                            <option value="Contemporary">Contemporary
+                            </option>
+                            <option value="Traditional">Traditional
+                            </option>
                             <option value="Bespoke">Bespoke</option>
                         </select>
                     </div>
@@ -880,7 +883,8 @@
                             <option value="">Select Face Type</option>
                             <option value="Cut Pile">Cut Pile</option>
                             <option value="Loop Pile">Loop Pile</option>
-                            <option value="Flat Weave">Flat Weave</option>
+                            <option value="Flat Weave">Flat Weave
+                            </option>
                             <option value="Velvet">Velvet</option>
                             <option value="High-Low">High-Low</option>
                         </select>
@@ -889,10 +893,14 @@
                         <label>Washing</label>
                         <select name="washing" id="editWashing">
                             <option value="">Select Wash Type</option>
-                            <option value="Stone Washed">Stone Washed</option>
-                            <option value="Tea Washed">Tea Washed</option>
-                            <option value="Luster Washed">Luster Washed</option>
-                            <option value="Antique Washed">Antique Washed</option>
+                            <option value="Stone Washed">Stone Washed
+                            </option>
+                            <option value="Tea Washed">Tea Washed
+                            </option>
+                            <option value="Luster Washed">Luster Washed
+                            </option>
+                            <option value="Antique Washed">Antique
+                                Washed</option>
                             <option value="Natural">Natural</option>
                         </select>
                     </div>
@@ -902,7 +910,8 @@
                     <label>Sizes Available</label>
                     <div class="size-options">
                         <label class="checkbox-label"><input type="checkbox" name="sizes"
-                                value="ALL EUROPEAN & AMERICAN SIZES" id="editSizeAll"> ALL EUROPEAN & AMERICAN
+                                value="ALL EUROPEAN & AMERICAN SIZES" id="editSizeAll"> ALL EUROPEAN &
+                            AMERICAN
                             SIZES</label>
                         <label class="checkbox-label"><input type="checkbox" name="sizes" value="2x3" id="editSize2x3">
                             2x3</label>
@@ -913,11 +922,14 @@
                         <label class="checkbox-label"><input type="checkbox" name="sizes" value="6x9" id="editSize6x9">
                             6x9</label>
                         <label class="checkbox-label"><input type="checkbox" name="sizes" value="8x10"
-                                id="editSize8x10"> 8x10</label>
+                                id="editSize8x10">
+                            8x10</label>
                         <label class="checkbox-label"><input type="checkbox" name="sizes" value="9x12"
-                                id="editSize9x12"> 9x12</label>
+                                id="editSize9x12">
+                            9x12</label>
                         <label class="checkbox-label"><input type="checkbox" name="sizes" value="Custom"
-                                id="editSizeCustom"> Custom</label>
+                                id="editSizeCustom">
+                            Custom</label>
                     </div>
                 </div>
 
@@ -929,7 +941,8 @@
                 <div style="text-align: right; margin-top: 2rem;">
                     <button type="button" onclick="closeEditModal()" class="btn-outline btn-small"
                         style="margin-right: 1rem;">Cancel</button>
-                    <button type="submit" class="btn-primary btn-small">Save Changes</button>
+                    <button type="submit" class="btn-primary btn-small">Save
+                        Changes</button>
                 </div>
             </form>
         </div>
@@ -986,24 +999,25 @@
             setTimeout(() => toast.classList.remove('show'), 4000);
         }
         // Edit Modal functions
-        function openEditModal(id, name, category, imageUrl, material, origin, knots, face, washing, sizesJSON, description) {
+        function openEditModal(btn) {
+            const carpet = JSON.parse(btn.getAttribute('data-carpet'));
             const form = document.getElementById('editForm');
-            form.action = '/api/carpets/edit/' + id;
+            form.action = '/api/carpets/edit/' + carpet.id;
 
-            document.getElementById('editName').value = name;
-            document.getElementById('editCategory').value = category;
-            document.getElementById('editImageUrl').value = imageUrl;
-            document.getElementById('editMaterial').value = material;
-            document.getElementById('editOrigin').value = origin;
-            document.getElementById('editKnots').value = knots;
-            document.getElementById('editFace').value = face;
-            document.getElementById('editWashing').value = washing;
-            document.getElementById('editDescription').value = description;
+            document.getElementById('editName').value = carpet.name || '';
+            document.getElementById('editCategory').value = carpet.category || 'Hand-Knotted';
+            document.getElementById('editImageUrl').value = carpet.imageUrl || '';
+            document.getElementById('editMaterial').value = carpet.material || '';
+            document.getElementById('editOrigin').value = carpet.origin || '';
+            document.getElementById('editKnots').value = carpet.knots || '';
+            document.getElementById('editFace').value = carpet.face || '';
+            document.getElementById('editWashing').value = carpet.washing || '';
+            document.getElementById('editDescription').value = carpet.description || '';
 
             // Reset checkboxes
-            const sizes = JSON.parse(sizesJSON || '[]');
+            const sizesArr = carpet.sizes || [];
             document.querySelectorAll('#editForm input[name=\"sizes\"]').forEach(cb => {
-                cb.checked = sizes.includes(cb.value);
+                cb.checked = sizesArr.includes(cb.value);
             });
 
             document.getElementById('editModal').classList.add('active');
