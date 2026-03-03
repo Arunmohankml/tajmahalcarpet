@@ -451,6 +451,8 @@
                     style="margin-right:6px;"></i>Catalog</button>
             <button class="admin-tab" onclick="switchTab('settings')"><i class="fas fa-images"
                     style="margin-right:6px;"></i>Site Images</button>
+            <button class="admin-tab" onclick="switchTab('messages')"><i class="fas fa-envelope-open-text"
+                    style="margin-right:6px;"></i>Messages</button>
         </div>
 
         <!-- ════ TAB: CATALOG ════ -->
@@ -821,6 +823,74 @@
                 </div>
             </form>
         </div>
+        <!-- ════ TAB: MESSAGES ════ -->
+        <div id="tab-messages" class="tab-content">
+            <div class="admin-card">
+                <h3><i class="fas fa-inbox" style="margin-right:8px; color:var(--color-gold);"></i>Customer Inquiries
+                </h3>
+                <% if (typeof messages !=='undefined' && messages.length> 0) { %>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Interest</th>
+                                    <th>Message</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% messages.forEach(msg=> { %>
+                                    <tr>
+                                        <td style="white-space:nowrap; font-size:0.75rem; color:#888;">
+                                            <%= msg.createdAt ? new Date(msg.createdAt._seconds *
+                                                1000).toLocaleDateString() : 'Just now' %>
+                                        </td>
+                                        <td>
+                                            <div style="font-weight:600; color:var(--color-dark);">
+                                                <%= msg.name %>
+                                            </div>
+                                            <div style="font-size:0.82rem; color:#666;">
+                                                <%= msg.email %>
+                                            </div>
+                                            <div style="font-size:0.82rem; color:#666;">
+                                                <%= msg.phone %>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge">
+                                                <%= msg.interest %>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div
+                                                style="font-size:0.88rem; line-height:1.4; max-width:400px; color:#444;">
+                                                <%= msg.message %>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <form action="/api/messages/delete/<%= msg.id %>" method="POST"
+                                                onsubmit="return confirm('Delete this message?');">
+                                                <button type="submit" class="btn-danger" title="Remove Message">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } else { %>
+                        <div class="empty-state">
+                            <i class="fas fa-envelope-open"
+                                style="font-size:3rem; color:#ddd; margin-bottom:1rem; display:block;"></i>
+                            <p style="color:#888;">No messages yet. Customer inquiries will appear here.</p>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
     </div>
 
     <!-- Toast -->
@@ -948,13 +1018,45 @@
         </div>
     </div>
 
+    <style>
+        /* Extra styles for Messages */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: #f0ede6;
+            color: var(--color-dark);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #fafaf8;
+            border-radius: 4px;
+            border: 1px dashed #ddd;
+        }
+    </style>
     <script>
         // Tab switching
         function switchTab(tab) {
+            // Hide all contents and remove active from all buttons
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.admin-tab').forEach(el => el.classList.remove('active'));
+
+            // Show selected content
             document.getElementById('tab-' + tab).classList.add('active');
-            event.target.classList.add('active');
+
+            // Highlight selected button
+            // Find the button that has the corresponding switchTab call
+            document.querySelectorAll('.admin-tab').forEach(btn => {
+                if (btn.getAttribute('onclick').includes("'" + tab + "'")) {
+                    btn.classList.add('active');
+                }
+            });
         }
 
         // Carpet image preview

@@ -1,7 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const { getCarpets, addCarpet, deleteCarpet, updateCarpet, getSettings, saveSettings } = require('./lib/db');
+const {
+    getCarpets, addCarpet, deleteCarpet, updateCarpet,
+    getSettings, saveSettings,
+    addMessage, getMessages, deleteMessage
+} = require('./lib/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -51,16 +55,27 @@ app.get('/contact', async (req, res) => {
 });
 
 app.post('/contact', async (req, res) => {
-    const settings = await getSettings();
-    console.log('Contact form submitted:', req.body);
-    res.render('contact', { success: true, settings });
+    try {
+        const { name, email, phone, interest, message } = req.body;
+        await addMessage({ name, email, phone, interest, message });
+        const settings = await getSettings();
+        res.render('contact', { success: true, settings });
+    } catch (error) {
+        console.error('Contact form error:', error);
+        const settings = await getSettings();
+        res.render('contact', { success: false, settings, error: 'Database error. Please try again later.' });
+    }
 });
 
 // ── ADMIN ROUTES ─────────────────────────────────────────
 
 app.get('/admin', async (req, res) => {
-    const [carpets, settings] = await Promise.all([getCarpets(), getSettings()]);
-    res.render('admin', { carpets, settings });
+    const [carpets, settings, messages] = await Promise.all([
+        getCarpets(),
+        getSettings(),
+        getMessages()
+    ]);
+    res.render('admin', { carpets, settings, messages });
 });
 
 app.post('/api/carpets', async (req, res) => {
@@ -93,6 +108,13 @@ app.post('/api/carpets/edit/:id', async (req, res) => {
 app.post('/api/settings', async (req, res) => {
     await saveSettings(req.body);
     res.redirect('/admin?saved=1');
+});
+
+// ── MESSAGE ROUTES ───────────────────────────────────────
+
+app.post('/api/messages/delete/:id', async (req, res) => {
+    await deleteMessage(req.params.id);
+    res.redirect('/admin');
 });
 
 // ── SERVER ───────────────────────────────────────────────
