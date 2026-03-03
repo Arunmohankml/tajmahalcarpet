@@ -36,15 +36,57 @@
                                         <% } %>
                                             <div class="carpet-overlay">
                                                 <div class="carpet-details">
-                                                    <p><strong>Material:</strong>
-                                                        <%= carpet.material %>
-                                                    </p>
-                                                    <p><strong>Origin:</strong>
-                                                        <%= carpet.origin %>
-                                                    </p>
-                                                    <p class="small-desc">
-                                                        <%= carpet.description %>
-                                                    </p>
+                                                    <h3
+                                                        style="font-family:var(--font-heading);font-style:italic;color:#fff;font-size:1.2rem;margin-bottom:0.6rem;">
+                                                        <%= carpet.name %>
+                                                    </h3>
+                                                    <div
+                                                        style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;text-align:left;font-size:0.78rem;margin-bottom:0.6rem;">
+                                                        <% if (carpet.knots) { %>
+                                                            <span><span
+                                                                    style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">KNOTS</span>
+                                                                <%= carpet.knots %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% if (carpet.face) { %>
+                                                                    <span><span
+                                                                            style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">FACE</span>
+                                                                        <%= carpet.face %>
+                                                                    </span>
+                                                                    <% } %>
+                                                                        <% if (carpet.washing) { %>
+                                                                            <span><span
+                                                                                    style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">WASHING</span>
+                                                                                <%= carpet.washing %>
+                                                                            </span>
+                                                                            <% } %>
+                                                                                <% if (carpet.material) { %>
+                                                                                    <span><span
+                                                                                            style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">MATERIAL</span>
+                                                                                        <%= carpet.material %>
+                                                                                    </span>
+                                                                                    <% } %>
+                                                    </div>
+                                                    <% if (carpet.sizes && carpet.sizes.length> 0) { %>
+                                                        <div style="margin-bottom:0.6rem;">
+                                                            <span
+                                                                style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;margin-bottom:0.3rem;">SIZES</span>
+                                                            <div style="display:flex;flex-wrap:wrap;gap:0.25rem;">
+                                                                <% carpet.sizes.forEach(s=> { %>
+                                                                    <span
+                                                                        style="background:rgba(196,151,59,0.2);border:1px solid rgba(196,151,59,0.4);padding:0.15rem 0.45rem;font-size:0.7rem;border-radius:1px;color:#f5ede0;">
+                                                                        <%= s %>
+                                                                    </span>
+                                                                    <% }) %>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                            <% if (carpet.description) { %>
+                                                                <p class="small-desc" style="font-size:0.8rem;">
+                                                                    <%= carpet.description.substring(0, 90) %>
+                                                                        <%= carpet.description.length> 90 ? '…' : '' %>
+                                                                </p>
+                                                                <% } %>
                                                 </div>
                                             </div>
                             </div>

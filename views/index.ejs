@@ -28,12 +28,16 @@
                 <span class="accent-text">Our Philosophy</span>
                 <h2 class="section-heading">Rooted in artisanal <em>mastery</em></h2>
                 <div class="ornament" style="justify-content:flex-start; margin-bottom: 1.5rem;">
-                    <div style="width:40px; height:1px; background: linear-gradient(90deg, var(--color-gold), transparent);"></div>
+                    <div
+                        style="width:40px; height:1px; background: linear-gradient(90deg, var(--color-gold), transparent);">
+                    </div>
                     <span class="ornament-symbol" style="font-size:0.9rem;">❧</span>
                 </div>
-                <p style="margin-bottom:1rem;">Tajmahal Products is a heritage-driven manufacturer, established on the principles of craftsmanship,
+                <p style="margin-bottom:1rem;">Tajmahal Products is a heritage-driven manufacturer, established on the
+                    principles of craftsmanship,
                     discretion, and consistency.</p>
-                <p style="margin-bottom:1.5rem;">We believe true luxury lies in detail, restraint, and longevity. Each piece is a testament to
+                <p style="margin-bottom:1.5rem;">We believe true luxury lies in detail, restraint, and longevity. Each
+                    piece is a testament to
                     precision, material integrity, and timeless design.</p>
                 <a href="/about" class="link-arrow mt-4">Read our story <i class="fas fa-arrow-right"></i></a>
             </div>
@@ -54,19 +58,66 @@
             </div>
 
             <div class="collection-grid">
-                <% if (featured && featured.length > 0) { %>
-                    <% featured.forEach(carpet => { %>
+                <% if (featured && featured.length> 0) { %>
+                    <% featured.forEach(carpet=> { %>
                         <a href="/products" class="carpet-card-link">
                             <div class="carpet-card">
                                 <div class="carpet-image">
-                                    <% if (carpet.imageUrl && carpet.imageUrl !== "") { %>
+                                    <% if (carpet.imageUrl && carpet.imageUrl !=="" ) { %>
                                         <img src="<%= carpet.imageUrl %>" alt="<%= carpet.name %>">
                                         <div class="carpet-overlay">
                                             <div class="carpet-details">
-                                                <h3 style="font-family:var(--font-heading);font-style:italic;color:#fff;margin-bottom:0.3rem;"><%= carpet.name %></h3>
-                                                <% if (carpet.description) { %>
-                                                    <p class="small-desc"><%= carpet.description.substring(0, 80) %>...</p>
-                                                <% } %>
+                                                <h3
+                                                    style="font-family:var(--font-heading);font-style:italic;color:#fff;font-size:1.15rem;margin-bottom:0.6rem;">
+                                                    <%= carpet.name %>
+                                                </h3>
+                                                <div
+                                                    style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;text-align:left;font-size:0.78rem;margin-bottom:0.5rem;">
+                                                    <% if (carpet.knots) { %>
+                                                        <span><span
+                                                                style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">KNOTS</span>
+                                                            <%= carpet.knots %>
+                                                        </span>
+                                                        <% } %>
+                                                            <% if (carpet.face) { %>
+                                                                <span><span
+                                                                        style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">FACE</span>
+                                                                    <%= carpet.face %>
+                                                                </span>
+                                                                <% } %>
+                                                                    <% if (carpet.washing) { %>
+                                                                        <span><span
+                                                                                style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">WASHING</span>
+                                                                            <%= carpet.washing %>
+                                                                        </span>
+                                                                        <% } %>
+                                                                            <% if (carpet.material) { %>
+                                                                                <span><span
+                                                                                        style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;">MATERIAL</span>
+                                                                                    <%= carpet.material %>
+                                                                                </span>
+                                                                                <% } %>
+                                                </div>
+                                                <% if (carpet.sizes && carpet.sizes.length> 0) { %>
+                                                    <div style="margin-bottom:0.5rem;">
+                                                        <span
+                                                            style="color:var(--color-gold-light);font-family:var(--font-display);font-size:0.65rem;letter-spacing:1px;display:block;margin-bottom:0.3rem;">SIZES</span>
+                                                        <div style="display:flex;flex-wrap:wrap;gap:0.25rem;">
+                                                            <% carpet.sizes.forEach(s=> { %>
+                                                                <span
+                                                                    style="background:rgba(196,151,59,0.2);border:1px solid rgba(196,151,59,0.4);padding:0.15rem 0.45rem;font-size:0.68rem;border-radius:1px;color:#f5ede0;">
+                                                                    <%= s %>
+                                                                </span>
+                                                                <% }) %>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                        <% if (carpet.description) { %>
+                                                            <p class="small-desc" style="font-size:0.78rem;">
+                                                                <%= carpet.description.substring(0, 80) %>
+                                                                    <%= carpet.description.length> 80 ? '…' : '' %>
+                                                            </p>
+                                                            <% } %>
                                             </div>
                                         </div>
                                         <% } else { %>
@@ -77,14 +128,19 @@
                                             <% } %>
                                 </div>
                                 <div class="carpet-info">
-                                    <span class="carpet-category"><%= carpet.category %></span>
-                                    <h3 class="carpet-title"><%= carpet.name %></h3>
+                                    <span class="carpet-category">
+                                        <%= carpet.category %>
+                                    </span>
+                                    <h3 class="carpet-title">
+                                        <%= carpet.name %>
+                                    </h3>
                                 </div>
                             </div>
                         </a>
                         <% }) %>
                             <% } else { %>
-                                <p class="text-center" style="grid-column:1/-1;">Collections are currently being curated.</p>
+                                <p class="text-center" style="grid-column:1/-1;">Collections are currently being
+                                    curated.</p>
                                 <% } %>
             </div>
             <div class="text-center mt-4 reveal">
@@ -127,4 +183,4 @@
         </div>
     </section>
 
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
