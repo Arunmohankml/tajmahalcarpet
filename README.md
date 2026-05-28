@@ -16,3 +16,9 @@
   <img src="https://img.shields.io/github/repo-size/Arunmohankml/tajmahalcarpet?style=for-the-badge" />
   <img src="https://img.shields.io/github/license/Arunmohankml/tajmahalcarpet?style=for-the-badge" />
 </p>```
+
+# Taj Mahal Carpet
+
+Modern premium business website built for showcasing luxury carpets, interior collections, and handcrafted products with a clean high-end digital experience.
+
+Designed with a minimal elegant UI, responsive layouts, smooth animations, and modern full-stack architecture focused on performance and professional brand presentation.
